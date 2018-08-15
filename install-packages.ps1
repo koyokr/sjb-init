@@ -1,7 +1,9 @@
 
 # choco
-Set-ExecutionPolicy Bypass -Scope Process -Force
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+if ($env:ChocolateyInstall -eq $null) {
+  Set-ExecutionPolicy Bypass -Scope Process -Force
+  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+}
 
 # firefox
 choco install firefox -y

