@@ -21,7 +21,7 @@ $env:HTTP_CLIENT = 'curl -f -L -k -o'
 choco install lein -y
 
 # clojurescript
-curl -L https://github.com/clojure/clojurescript/releases/download/r1.10.339/cljs.jar \
+curl -L https://github.com/clojure/clojurescript/releases/download/r1.10.339/cljs.jar `
   -o $env:USERPROFILE\Documents\cljs.jar
 
 # vscode
