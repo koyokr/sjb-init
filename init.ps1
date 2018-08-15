@@ -1,3 +1,5 @@
+# init
+
 $url = 'https://sjb.koyo.io'
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
@@ -6,6 +8,6 @@ if ($env:ChocolateyInstall -eq $null) {
   choco install curl -y
 }
 
-curl -L $url/disable-policies.ps1 | iex
-curl -L $url/configure-hosts.ps1 | iex
-curl -L $url/install-packages.ps1 | iex
+curl -L $url/disable-policies.ps1 | Out-String | iex
+curl -L $url/configure-hosts.ps1 | Out-String | iex
+curl -L $url/install-packages.ps1 | Out-String | iex

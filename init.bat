@@ -11,4 +11,4 @@ SET Path=%Path%;%ALLUSERSPROFILE%\chocolatey\bin
 choco install curl -y
 
 :: init
-%POSH% -Command "curl -L https://sjb.koyo.io/init.ps1 | iex"
+%POSH% -Command "curl -L https://sjb.koyo.io/init.ps1 | Out-String | iex"
