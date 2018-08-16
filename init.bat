@@ -4,7 +4,7 @@
 SET POSH=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass
 
 :: install choco
-IF NOT EXIST %ChocolateyInstall% (
+IF %ChocolateyInstall%=="" (
   %POSH% -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
   SET Path=%Path%;%ALLUSERSPROFILE%\chocolatey\bin
 )
