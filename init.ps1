@@ -1,3 +1,6 @@
+# refresh env
+$env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
+
 # install choco
 Set-ExecutionPolicy Bypass -Scope Process -Force
 if ($env:ChocolateyInstall -eq $null) {
@@ -8,9 +11,6 @@ choco install curl -y
 
 # set url
 $url = 'https://sjb.koyo.io'
-
-# refresh env
-$env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
 
 curl -L $url/disable-policies.ps1 | Out-String | iex
 curl -L $url/configure-hosts.ps1 | Out-String | iex
