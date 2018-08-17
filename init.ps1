@@ -1,5 +1,6 @@
 # refresh env
 $env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
+$env:ChocolateyInstall = [Environment]::GetEnvironmentVariable('ChocolateyInstall', [EnvironmentVariableTarget]::Machine)
 
 # install choco
 Set-ExecutionPolicy Bypass -Scope Process -Force
