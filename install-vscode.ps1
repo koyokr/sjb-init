@@ -14,4 +14,4 @@ code --install-extension ms-ceintl.vscode-language-pack-ko
 code --install-extension eamodio.gitlens
 code --install-extension avli.clojure
 
-code; Stop-Process code
+code; Stop-Process -Name code
