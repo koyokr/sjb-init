@@ -1,6 +1,7 @@
 # require choco, curl
 
 # install leiningen
+choco install curl -y
 $env:HTTP_CLIENT = 'curl -f -L -k -o'
 choco install jdk8 lein -y
 

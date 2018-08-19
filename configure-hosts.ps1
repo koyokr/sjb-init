@@ -1,7 +1,4 @@
-# require curl
+# require init.ps1
 
-# refresh env
-$env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
-
-# configure hosts
-curl -L https://sjb.koyo.io/hosts | Add-Content -Path C:\Windows\System32\drivers\etc\hosts
+# replace hosts
+download-string 'https://sjb.koyo.io/hosts' | Set-Content -Path C:\Windows\System32\drivers\etc\hosts
