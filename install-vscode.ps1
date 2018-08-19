@@ -1,10 +1,12 @@
 # require choco
 
+function refresh-env($name) {
+  Set-Item -Path env:$name -Value ([Environment]::GetEnvironmentVariable($name, [EnvironmentVariableTarget]::Machine))
+}
+
 # install vscode, git
 choco install vscode git -y
-
-# refresh env
-$env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
+refresh-env 'Path'
 
 # install extension language-pack-ko
 code --install-extension ms-ceintl.vscode-language-pack-ko
@@ -13,5 +15,3 @@ code --install-extension ms-ceintl.vscode-language-pack-ko
 # install extension other
 code --install-extension eamodio.gitlens
 code --install-extension avli.clojure
-
-code; Stop-Process -Name code

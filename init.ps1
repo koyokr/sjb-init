@@ -1,18 +1,16 @@
-# refresh env
-$env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
-$env:ChocolateyInstall = [Environment]::GetEnvironmentVariable('ChocolateyInstall', [EnvironmentVariableTarget]::Machine)
-
-# install choco
 Set-ExecutionPolicy Bypass -Scope Process -Force
-if ($env:ChocolateyInstall -eq $null) {
-  iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+function download-string($url) {
+  (New-Object System.Net.WebClient).DownloadString($url)
 }
-# install curl
-choco install curl -y
 
-# set url
-$url = 'https://sjb.koyo.io'
+Write-Host '[!] Disable policies'
+download-string 'https://sjb.koyo.io/disable-policies.ps1' | iex | Out-Null
+Write-Host '[!] Configure hosts'
+download-string 'https://sjb.koyo.io/configure-hosts.ps1' | iex | Out-Null
+Write-Host '[!] Install packages'
+download-string 'https://sjb.koyo.io/install-packages.ps1' | iex | Out-Null
 
-curl -L $url/disable-policies.ps1 | Out-String | iex
-curl -L $url/configure-hosts.ps1 | Out-String | iex
-curl -L $url/install-packages.ps1 | Out-String | iex
+Write-Host '[!] Complete' -ForegroundColor green
+Read-Host

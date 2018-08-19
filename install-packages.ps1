@@ -1,18 +1,22 @@
-# require choco, curl
+Set-ExecutionPolicy Bypass -Scope Process -Force
 
-$url = 'https://sjb.koyo.io'
+function refresh-env($name) {
+  Set-Item -Path env:$name -Value ([Environment]::GetEnvironmentVariable($name, [EnvironmentVariableTarget]::Machine))
+}
 
-# refresh env
-$env:Path = [Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine)
+# install choco
+refresh-env 'ChocolateyInstall'
+if ($env:ChocolateyInstall -eq $null) {
+  download-string 'https://chocolatey.org/install.ps1' | iex
+}
 
-# install firefox
-choco install firefox -y
+# install firefox, curl
+choco install firefox, curl -y
+refresh-env 'Path'
 
-# install vscode
-curl -L $url/install-vscode.ps1 | Out-String | iex
-
-# install clojure
-curl -L $url/install-clojure.ps1 | Out-String | iex
+# install vscode, clojure
+curl -L https://sjb.koyo.io/install-vscode.ps1 | Out-String | iex
+curl -L https://sjb.koyo.io/install-clojure.ps1 | Out-String | iex
 
 # install putty, font
 choco install putty.install d2codingfont -y
