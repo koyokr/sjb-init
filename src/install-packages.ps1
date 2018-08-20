@@ -10,8 +10,8 @@ if ($env:ChocolateyInstall -eq $null) {
 choco install firefox -y
 
 # install vscode, clojure
-download-string 'https://sjb.koyo.io/install-vscode.ps1' | Out-String | iex
-download-string 'https://sjb.koyo.io/install-clojure.ps1' | Out-String | iex
+download-string 'https://sjb.koyo.io/src/install-vscode.ps1' | Out-String | iex
+download-string 'https://sjb.koyo.io/src/install-clojure.ps1' | Out-String | iex
 
 # install putty, font
 choco install putty.install d2codingfont -y

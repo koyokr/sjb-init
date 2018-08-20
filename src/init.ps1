@@ -12,11 +12,11 @@ function refresh-env($name) {
 }
 
 Write-Host '[!] Disable policies'
-download-string 'https://sjb.koyo.io/disable-policies.ps1' | iex | Out-Null
+download-string 'https://sjb.koyo.io/src/disable-policies.ps1' | iex | Out-Null
 Write-Host '[!] Configure hosts'
-download-string 'https://sjb.koyo.io/configure-hosts.ps1' | iex | Out-Null
+download-string 'https://sjb.koyo.io/src/configure-hosts.ps1' | iex | Out-Null
 Write-Host '[!] Install packages'
-download-string 'https://sjb.koyo.io/install-packages.ps1' | iex | Out-Null
+download-string 'https://sjb.koyo.io/src/install-packages.ps1' | iex | Out-Null
 
 Write-Host '[!] Complete' -ForegroundColor green
 Read-Host
