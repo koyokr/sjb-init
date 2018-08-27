@@ -1,4 +1,4 @@
-# require choco
+# require init, choco
 
 # install vscode, git
 choco install vscode git -y
@@ -11,3 +11,4 @@ code --install-extension ms-ceintl.vscode-language-pack-ko
 # install extension other
 code --install-extension eamodio.gitlens
 code --install-extension avli.clojure
+code --install-extension ms-vscode.csharp
