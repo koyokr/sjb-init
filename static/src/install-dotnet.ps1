@@ -1,3 +1,3 @@
 # require init, choco
 
-choco install netfx-4.7.1-devpack -y
+choco install dotnetcore-sdk netfx-4.7.2-devpack -y
