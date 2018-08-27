@@ -11,14 +11,14 @@ New-Item out/cs -ItemType directory
 Copy-Item static/* out/ -Recurse
 
 # index.html
-Copy-Item init/index.html out
-Copy-Item init/index.html out/clj
-Copy-Item init/index.html out/cs
+Copy-Item src/index.html out
+Copy-Item src/index.html out/clj
+Copy-Item src/index.html out/cs
 
 # init.bat
-(Get-Content init/init.bat) -replace '/init.ps1', '/init.ps1' | Set-Content out/init.bat
-(Get-Content init/init.bat) -replace '/init.ps1', '/clj/init.ps1' | Set-Content out/clj/init.bat
-(Get-Content init/init.bat) -replace '/init.ps1', '/cs/init.ps1' | Set-Content out/cs/init.bat
+(Get-Content src/init.bat) -replace '/init.ps1', '/init.ps1' | Set-Content out/init.bat
+(Get-Content src/init.bat) -replace '/init.ps1', '/clj/init.ps1' | Set-Content out/clj/init.bat
+(Get-Content src/init.bat) -replace '/init.ps1', '/cs/init.ps1' | Set-Content out/cs/init.bat
 
 # init.ps1
 $root = @(
@@ -46,9 +46,9 @@ $cs = @(
   'install-putty'
 )
 $complete = "Write-Host '[!] Complete' -ForegroundColor green; Read-Host"
-Copy-Item init/init.ps1 out
-Copy-Item init/init.ps1 out/clj
-Copy-Item init/init.ps1 out/cs
+Copy-Item src/init.ps1 out
+Copy-Item src/init.ps1 out/clj
+Copy-Item src/init.ps1 out/cs
 $root | % {Get-Code $_} | Add-Content out/init.ps1
 $clj | % {Get-Code $_} | Add-Content out/clj/init.ps1
 $cs | % {Get-Code $_} | Add-Content out/cs/init.ps1

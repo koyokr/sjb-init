@@ -1,6 +1,16 @@
 language: cpp
 install:
-  - sudo dpkg -i powershell_6.0.2-1.ubuntu.14.04_amd64.deb
-  - sudo apt-get install -f
+  - sudo snap install powershell --classic
 script:
   - pwsh -File build.ps1
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  local_dir: out
+  repo: koyokr/sjb-init
+  target-branch: gh-pages
+  committer-from-gh: true
+  on:
+    branch: master
