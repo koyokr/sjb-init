@@ -1,6 +1,5 @@
 language: cpp
 before_install:
-  - sudo apt update
   - sudo apt install snapd
 install:
   - sudo snap install powershell --classic
