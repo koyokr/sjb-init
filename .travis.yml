@@ -1,0 +1,24 @@
+sudo: required
+language: generic
+os: linux
+dist: trusty
+addons:
+  apt:
+    sources:
+      - sourceline: deb [arch=amd64] https://packages.microsoft.com/ubuntu/14.04/prod trusty main
+        key_url: https://packages.microsoft.com/keys/microsoft.asc
+    packages:
+      - powershell
+script:
+  - pwsh -File build.ps1
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  local_dir: out
+  repo: koyokr/sjb-init
+  target-branch: gh-pages
+  committer-from-gh: true
+  on:
+    branch: master
