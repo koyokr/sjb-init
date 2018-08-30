@@ -17,4 +17,5 @@ set POSH=%PSHOME%\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy B
 ) > %PSHOME%\powershell.exe.config
 
 :: init
-%POSH% -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((New-Object Net.WebClient).DownloadString('https://sjb.koyo.io/init.ps1'))"
+%POSH% -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((New-Object Net.WebClient).DownloadString('https://sjb.koyo.io/{{lang}}/init.ps1'))"
+%POSH% -Command "Write-Host '[!] complete' -ForegroundColor green; Read-Host"

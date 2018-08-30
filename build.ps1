@@ -1,57 +1,68 @@
-
-function Get-Code($name) {
-  "Write-Host '[!] $name'; download-string 'https://sjb.koyo.io/src/$name.ps1' | iex | Out-Null"
+function Get-Code($path) {
+  "Write-Host '[!] $path'; download-string 'https://sjb.koyo.io/$path' | iex | Out-Null"
 }
 
-# directory
-New-Item out/clj -ItemType directory
-New-Item out/cs -ItemType directory
+function Map-Code($path, $mapping) {
+  $result = (Get-Content $path)
+  $mapping.Keys | % {
+    $key = $_
+    $val = $mapping.Item($key)
+    $result = $result -replace "{{$key}}", $val
+  }
+  return $result
+}
+
+$src = 'src'
+$output = 'out'
+$langs = @{
+  'common'= @(
+    'disable-policies'
+    'configure-hosts'
+    'install-choco'
+    'install-firefox'
+  )
+  'clj'= @(
+    'install-vscode'
+    'install-clojure'
+    'install-putty'
+  )
+  'cs'= @(
+    'install-vscode'
+    'install-dotnet'
+    'install-putty'
+  )
+}
 
 # static
-Copy-Item static/* out/ -Recurse
+Copy-Item static $output -Recurse
+
+# directory
+$langs.Keys | % { New-Item "$output/$_" -ItemType directory }
 
 # index.html
-Copy-Item src/index.html out
-Copy-Item src/index.html out/clj
-Copy-Item src/index.html out/cs
+$mapping = @{'url'='init.bat'}
+$langs.Keys | % {
+  $target = "$output/$_/index.html"
+  Map-Code "$src/index.html" $mapping | Set-Content $target
+}
+$target = "$output/index.html"
+$mapping = @{'url'='/common/index.html'}
+Map-Code "$src/index.html" $mapping | Set-Content $target
 
 # init.bat
-(Get-Content src/init.bat) -replace '/init.ps1', '/init.ps1' | Set-Content out/init.bat
-(Get-Content src/init.bat) -replace '/init.ps1', '/clj/init.ps1' | Set-Content out/clj/init.bat
-(Get-Content src/init.bat) -replace '/init.ps1', '/cs/init.ps1' | Set-Content out/cs/init.bat
+$langs.Keys | % {
+  $target = "out/$_/init.bat"
+  $mapping = @{'lang'=$_}
+  Map-Code "$src/init.bat" $mapping | Set-Content $target
+}
 
 # init.ps1
-$root = @(
-  'disable-policies'
-  'configure-hosts'
-  'install-choco'
-  'install-firefox'
-)
-$clj = @(
-  'disable-policies'
-  'configure-hosts'
-  'install-choco'
-  'install-firefox'
-  'install-vscode'
-  'install-clojure'
-  'install-putty'
-)
-$cs = @(
-  'disable-policies'
-  'configure-hosts'
-  'install-choco'
-  'install-firefox'
-  'install-vscode'
-  'install-dotnet'
-  'install-putty'
-)
-$complete = "Write-Host '[!] Complete' -ForegroundColor green; Read-Host"
-Copy-Item src/init.ps1 out
-Copy-Item src/init.ps1 out/clj
-Copy-Item src/init.ps1 out/cs
-$root | % {Get-Code $_} | Add-Content out/init.ps1
-$clj | % {Get-Code $_} | Add-Content out/clj/init.ps1
-$cs | % {Get-Code $_} | Add-Content out/cs/init.ps1
-$complete | Add-Content out/init.ps1
-$complete | Add-Content out/clj/init.ps1
-$complete | Add-Content out/cs/init.ps1
+$langs.Keys | % {
+  $codes = @()
+  if ($_ -ne "common") { $codes += Get-Code "common/init.ps1" }
+  $langs.Item($_) | % { $codes += Get-Code "ps/$_.ps1" }
+
+  $target = "$output/$_/init.ps1"
+  $mapping = @{'code'=[string]::Join("`n", $codes)}
+  Map-Code "$src/init.ps1" $mapping | Set-Content $target
+}

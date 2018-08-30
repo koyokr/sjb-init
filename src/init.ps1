@@ -11,3 +11,4 @@ function refresh-env($name) {
   Set-Item -Path env:$name -Value ([Environment]::GetEnvironmentVariable($name, [EnvironmentVariableTarget]::Machine))
 }
 
+{{code}}
