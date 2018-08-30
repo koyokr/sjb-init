@@ -12,7 +12,7 @@ function Map-Code($path, $mapping) {
   return $result
 }
 
-$src = 'src'
+$template = 'template'
 $output = 'out'
 $langs = @{
   'common'= @(
@@ -43,17 +43,17 @@ $langs.Keys | % { New-Item "$output/$_" -ItemType directory }
 $mapping = @{'url'='init.bat'}
 $langs.Keys | % {
   $target = "$output/$_/index.html"
-  Map-Code "$src/index.html" $mapping | Set-Content $target
+  Map-Code "$template/index.html" $mapping | Set-Content $target
 }
 $target = "$output/index.html"
 $mapping = @{'url'='/common/index.html'}
-Map-Code "$src/index.html" $mapping | Set-Content $target
+Map-Code "$template/index.html" $mapping | Set-Content $target
 
 # init.bat
 $langs.Keys | % {
   $target = "out/$_/init.bat"
   $mapping = @{'lang'=$_}
-  Map-Code "$src/init.bat" $mapping | Set-Content $target
+  Map-Code "$template/init.bat" $mapping | Set-Content $target
 }
 
 # init.ps1
@@ -64,5 +64,5 @@ $langs.Keys | % {
 
   $target = "$output/$_/init.ps1"
   $mapping = @{'code'=[string]::Join("`n", $codes)}
-  Map-Code "$src/init.ps1" $mapping | Set-Content $target
+  Map-Code "$template/init.ps1" $mapping | Set-Content $target
 }
