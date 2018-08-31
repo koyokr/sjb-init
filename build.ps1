@@ -1,14 +1,10 @@
-function Get-Code($path) {
-  "Write-Host '[!] $path'; download-string 'https://sjb.koyo.io/$path' | iex | Out-Null"
+function Get-DownloadCode($path) {
+  "Write-Host '[!] $path'; Download-String 'https://sjb.koyo.io/$path' | iex | Out-Null"
 }
 
-function Map-Code($path, $mapping) {
-  $result = (Get-Content $path)
-  $mapping.Keys | % {
-    $key = $_
-    $val = $mapping.Item($key)
-    $result = $result -replace "{{$key}}", $val
-  }
+function Format-Code($path, $mapping) {
+  $result = Get-Content $path
+  $mapping.Keys | % { $result = $result -replace "{{$_}}", $mapping.Item($_) }
   return $result
 }
 
@@ -20,16 +16,17 @@ $langs = @{
     'configure-hosts'
     'install-choco'
     'install-firefox'
+    'install-vscode'
+    'install-putty'
   )
   'clj'= @(
-    'install-vscode'
     'install-clojure'
-    'install-putty'
   )
   'cs'= @(
-    'install-vscode'
     'install-dotnet'
-    'install-putty'
+  )
+  'ps' = @(
+    'install-powershell'
   )
 }
 
@@ -40,29 +37,16 @@ Copy-Item static $output -Recurse
 $langs.Keys | % { New-Item "$output/$_" -ItemType directory }
 
 # index.html
-$mapping = @{'url'='init.bat'}
-$langs.Keys | % {
-  $target = "$output/$_/index.html"
-  Map-Code "$template/index.html" $mapping | Set-Content $target
-}
-$target = "$output/index.html"
-$mapping = @{'url'='/common/index.html'}
-Map-Code "$template/index.html" $mapping | Set-Content $target
+$langs.Keys | % { Format-Code "$template/index.html" @{'url'='init.bat'} | Set-Content "$output/$_/index.html" }
+Format-Code "$template/index.html" @{'url'='/common/index.html'} | Set-Content "$output/index.html"
 
 # init.bat
-$langs.Keys | % {
-  $target = "out/$_/init.bat"
-  $mapping = @{'lang'=$_}
-  Map-Code "$template/init.bat" $mapping | Set-Content $target
-}
+$langs.Keys | % { Format-Code "$template/init.bat" @{'lang'=$_} | Set-Content "out/$_/init.bat" }
 
 # init.ps1
 $langs.Keys | % {
   $codes = @()
-  if ($_ -ne "common") { $codes += Get-Code "common/init.ps1" }
-  $langs.Item($_) | % { $codes += Get-Code "ps/$_.ps1" }
-
-  $target = "$output/$_/init.ps1"
-  $mapping = @{'code'=[string]::Join("`n", $codes)}
-  Map-Code "$template/init.ps1" $mapping | Set-Content $target
+  if ($_ -ne "common") { $codes += Get-DownloadCode "common/init.ps1" }
+  $langs.Item($_) | % { $codes += Get-DownloadCode "script/$_.ps1" }
+  Format-Code "$template/init.ps1" @{'code'=[string]::Join("`n", $codes)} | Set-Content "$output/$_/init.ps1"
 }
