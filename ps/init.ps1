@@ -12,4 +12,4 @@ function Refresh-Environment($name) {
 }
 
 Write-Host '[!] common/init.ps1'; Download-String 'https://sjb.koyo.io/common/init.ps1' | iex | Out-Null
-Write-Host '[!] script/install-dotnet.ps1'; Download-String 'https://sjb.koyo.io/script/install-dotnet.ps1' | iex | Out-Null
+Write-Host '[!] script/install-powershell.ps1'; Download-String 'https://sjb.koyo.io/script/install-powershell.ps1' | iex | Out-Null

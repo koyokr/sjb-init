@@ -1,4 +1,4 @@
-# require init, choco
+# require choco
 
 # install firefox
 choco install firefox -y

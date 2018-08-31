@@ -1,17 +1,15 @@
 # require .NET 4 runtime
 
 Set-ExecutionPolicy Bypass -Scope Process -Force
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-function download-string($url) {
+function Download-String($url) {
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   (New-Object System.Net.WebClient).DownloadString($url)
 }
 
-function refresh-env($name) {
+function Refresh-Environment($name) {
   Set-Item -Path env:$name -Value ([Environment]::GetEnvironmentVariable($name, [EnvironmentVariableTarget]::Machine))
 }
 
-Write-Host '[!] common/init.ps1'; download-string 'https://sjb.koyo.io/common/init.ps1' | iex | Out-Null
-Write-Host '[!] ps/install-vscode.ps1'; download-string 'https://sjb.koyo.io/ps/install-vscode.ps1' | iex | Out-Null
-Write-Host '[!] ps/install-clojure.ps1'; download-string 'https://sjb.koyo.io/ps/install-clojure.ps1' | iex | Out-Null
-Write-Host '[!] ps/install-putty.ps1'; download-string 'https://sjb.koyo.io/ps/install-putty.ps1' | iex | Out-Null
+Write-Host '[!] common/init.ps1'; Download-String 'https://sjb.koyo.io/common/init.ps1' | iex | Out-Null
+Write-Host '[!] script/install-clojure.ps1'; Download-String 'https://sjb.koyo.io/script/install-clojure.ps1' | iex | Out-Null
