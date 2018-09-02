@@ -20,6 +20,10 @@ code --install-extension avli.clojure
     {
         "key": "ctrl+oem_1",
         "command": "clojureVSCode.formatFile"
+    },
+    {
+        "key": "ctrl+oem_7",
+        "command": "clojureVSCode.testNamespace"
     }
 ]
 '@ | Set-Content -Path $env:APPDATA\Code\User\keybindings.json
