@@ -12,6 +12,7 @@ function Refresh-Environment($name) {
 }
 
 Write-Host '[!] script/disable-policies.ps1'; Download-String 'https://sjb.koyo.io/script/disable-policies.ps1' | iex | Out-Null
+Write-Host '[!] script/configure-dns.ps1'; Download-String 'https://sjb.koyo.io/script/configure-dns.ps1' | iex | Out-Null
 Write-Host '[!] script/configure-hosts.ps1'; Download-String 'https://sjb.koyo.io/script/configure-hosts.ps1' | iex | Out-Null
 Write-Host '[!] script/install-choco.ps1'; Download-String 'https://sjb.koyo.io/script/install-choco.ps1' | iex | Out-Null
 Write-Host '[!] script/install-firefox.ps1'; Download-String 'https://sjb.koyo.io/script/install-firefox.ps1' | iex | Out-Null
