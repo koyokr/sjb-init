@@ -28,9 +28,5 @@ code --install-extension avli.clojure
 ]
 '@ | Set-Content -Path $env:APPDATA\Code\User\keybindings.json
 
-# download clojurescript
-curl -L https://github.com/clojure/clojurescript/releases/download/r1.10.339/cljs.jar `
-  -o $env:USERPROFILE\Documents\cljs.jar
-
 # install nodejs
 choco install nodejs.install -y

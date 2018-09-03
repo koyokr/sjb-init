@@ -13,6 +13,7 @@ $output = 'out'
 $langs = @{
   'common'= @(
     'disable-policies'
+    'configure-dns'
     'configure-hosts'
     'install-choco'
     'install-firefox'
