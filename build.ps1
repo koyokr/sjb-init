@@ -16,7 +16,7 @@ $langs = @{
     'configure-dns'
     'configure-hosts'
     'install-choco'
-    'install-chrome'
+    'install-packages'
     'install-vscode'
   )
   'clj'= @(
