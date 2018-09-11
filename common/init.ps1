@@ -15,5 +15,5 @@ Write-Host '[!] script/disable-policies.ps1'; Download-String 'https://sjb.koyo.
 Write-Host '[!] script/configure-dns.ps1'; Download-String 'https://sjb.koyo.io/script/configure-dns.ps1' | iex | Out-Null
 Write-Host '[!] script/configure-hosts.ps1'; Download-String 'https://sjb.koyo.io/script/configure-hosts.ps1' | iex | Out-Null
 Write-Host '[!] script/install-choco.ps1'; Download-String 'https://sjb.koyo.io/script/install-choco.ps1' | iex | Out-Null
-Write-Host '[!] script/install-chrome.ps1'; Download-String 'https://sjb.koyo.io/script/install-chrome.ps1' | iex | Out-Null
+Write-Host '[!] script/install-packages.ps1'; Download-String 'https://sjb.koyo.io/script/install-packages.ps1' | iex | Out-Null
 Write-Host '[!] script/install-vscode.ps1'; Download-String 'https://sjb.koyo.io/script/install-vscode.ps1' | iex | Out-Null
