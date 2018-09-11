@@ -115,6 +115,7 @@
      74.125.24.95     chart.googleapis.com
      74.125.24.95     content.googleapis.com
      74.125.24.95     fonts.googleapis.com
+     74.125.24.95     imasdk.googleapis.com
      74.125.24.95     incrementalwebfonts-pa.googleapis.com
      74.125.24.95     maps.googleapis.com
      74.125.24.95     safebrowsing.googleapis.com
@@ -167,9 +168,10 @@
     74.125.24.100     www.appspot.com
     74.125.24.100     chromebook.com
     74.125.24.100     www.chromebook.com
-    74.125.24.100     analytics.google.com
     74.125.24.100     admin.google.com
     74.125.24.100     ads.google.com
+    74.125.24.100     ampcid.google.com
+    74.125.24.100     analytics.google.com
     74.125.24.100     apis.google.com
     74.125.24.100     apps.google.com
     74.125.24.100     books.google.com
@@ -248,6 +250,7 @@
     74.125.24.119     i.ytimg.com
     74.125.24.128     storage.googleapis.com
     74.125.24.132     cdn.ampproject.net
+    74.125.24.132     cdn.ampproject.org
     74.125.24.132     1.bp.blogspot.com
     74.125.24.132     2.bp.blogspot.com
     74.125.24.132     3.bp.blogspot.com
@@ -373,4 +376,3 @@
     74.125.24.191     blogblog.com
     74.125.24.191     www.blogblog.com
     74.125.24.191     resources.blogblog.com
-    
