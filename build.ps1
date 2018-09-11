@@ -16,9 +16,8 @@ $langs = @{
     'configure-dns'
     'configure-hosts'
     'install-choco'
-    'install-firefox'
+    'install-chrome'
     'install-vscode'
-    'install-putty'
   )
   'clj'= @(
     'install-clojure'
