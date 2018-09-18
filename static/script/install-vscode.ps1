@@ -1,7 +1,7 @@
 # require init, choco
 
 # install vscode, git
-choco install vscode git -y
+choco install vscode git.install -y
 Refresh-Environment 'Path'
 
 # install extension language-pack-ko
