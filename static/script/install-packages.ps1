@@ -4,13 +4,22 @@
 choco install googlechrome -y
 
 # set chrome as default browser
-$regKey = 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\{0}\UserChoice'
-$regKeyFtp   = $regKey -f 'ftp'
-$regKeyHttp  = $regKey -f 'http'
-$regKeyHttps = $regKey -f 'https'
-Set-ItemProperty $regKeyFtp   -Name ProgId ChromeHTML
-Set-ItemProperty $regKeyHttp  -Name ProgId ChromeHTML
-Set-ItemProperty $regKeyHttps -Name ProgId ChromeHTML
+$base = 'HKCU:\Software\Microsoft\Windows\Shell\'
+$assoc = 'Associations\UrlAssociations\{0}\UserChoice'
+
+$ftp   = $assoc -f 'ftp'
+$http  = $assoc -f 'http'
+$https = $assoc -f 'https'
+New-Item -Path $base -Name $ftp   -Force
+New-Item -Path $base -Name $http  -Force
+New-Item -Path $base -Name $https -Force
+
+$ftp   = $base + $ftp
+$http  = $base + $http
+$https = $base + $https
+Set-ItemProperty -Path $ftp   -Name ProgId -Value ChromeHTML
+Set-ItemProperty -Path $http  -Name ProgId -Value ChromeHTML
+Set-ItemProperty -Path $https -Name ProgId -Value ChromeHTML
 
 # install 7zip
 choco install 7zip.install -y
