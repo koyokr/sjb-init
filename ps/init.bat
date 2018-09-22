@@ -2,7 +2,7 @@
 
 :: set env
 set PSHOME=%SystemRoot%\System32\WindowsPowerShell\v1.0
-set POSH=%PSHOME%\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass
+set PWSH=%PSHOME%\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy Bypass
 
 :: run powershell with the .NET 4 runtime
 :: https://stackoverflow.com/questions/2094694/how-can-i-run-powershell-with-the-net-4-runtime
@@ -17,5 +17,4 @@ set POSH=%PSHOME%\powershell.exe -NoProfile -InputFormat None -ExecutionPolicy B
 ) > %PSHOME%\powershell.exe.config
 
 :: init
-%POSH% -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((New-Object Net.WebClient).DownloadString('https://sjb.koyo.io/ps/init.ps1'))"
-%POSH% -Command "Write-Host '[!] complete' -ForegroundColor green; Read-Host"
+%PWSH% -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; iex ((New-Object Net.WebClient).DownloadString('https://sjb.koyo.io/ps/init.ps1'))"
