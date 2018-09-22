@@ -1,52 +1,49 @@
-function Get-DownloadCode($path) {
-  "Write-Host '[!] $path'; Download-String 'https://sjb.koyo.io/$path' | iex | Out-Null"
-}
-
-function Format-Code($path, $mapping) {
-  $result = Get-Content $path
-  $mapping.Keys | % { $result = $result -replace "{{$_}}", $mapping.Item($_) }
+function format-code($path, $mapping) {
+  $result = get-content $path
+  $mapping.keys | % { $result = $result -replace "{{$_}}", $mapping.item($_) }
   return $result
 }
 
-$template = 'template'
-$output = 'out'
+function convert-fn($fn) {
+  "write-host '[!] $fn'; $fn"
+}
+
+$template = "template"
+$output = "out"
 $langs = @{
-  'common'= @(
-    'disable-policies'
-    'configure-dns'
-    'configure-hosts'
-    'install-choco'
-    'install-packages'
-    'install-vscode'
+  "common"= @(
+    "disable-policies"
+    "configure-dns"
+    "configure-hosts"
+    "install-choco"
+    "install-chrome"
+    "install-vscode"
   )
-  'clj'= @(
-    'install-clojure'
+  "clj"= @(
+    "install-clojure"
   )
-  'cs'= @(
-    'install-dotnet'
-  )
-  'ps' = @(
-    'install-powershell'
+  "ps" = @(
+    "install-powershell"
   )
 }
 
 # static
-Copy-Item static $output -Recurse
+copy-item static $output -recurse
 
 # directory
-$langs.Keys | % { New-Item "$output/$_" -ItemType directory }
+$langs.keys | % { new-item "$output/$_" -itemtype directory }
 
 # index.html
-$langs.Keys | % { Format-Code "$template/index.html" @{'url'='init.bat'} | Set-Content "$output/$_/index.html" }
-Format-Code "$template/index.html" @{'url'='/common/index.html'} | Set-Content "$output/index.html"
+$langs.keys | % { format-code "$template/index.html" @{"url"="init.bat"} | set-content "$output/$_/index.html" }
+format-code "$template/index.html" @{"url"="/common/index.html"} | set-content "$output/index.html"
 
 # init.bat
-$langs.Keys | % { Format-Code "$template/init.bat" @{'lang'=$_} | Set-Content "out/$_/init.bat" }
+$langs.keys | % { format-code "$template/init.bat" @{"lang"=$_} | set-content "out/$_/init.bat" }
 
 # init.ps1
-$langs.Keys | % {
-  $codes = @()
-  if ($_ -ne "common") { $codes += Get-DownloadCode "common/init.ps1" }
-  $langs.Item($_) | % { $codes += Get-DownloadCode "script/$_.ps1" }
-  Format-Code "$template/init.ps1" @{'code'=[string]::Join("`n", $codes)} | Set-Content "$output/$_/init.ps1"
+$langs.keys | % {
+  $fns = $langs.item($_)
+  if ($_ -ne "common") { $fns = $langs.item("common") + $fns }
+  $fns = $fns | % { convert-fn $_ }
+  format-code "$template/init.ps1" @{'code'=[string]::Join("`n", $fns)} | set-content "$output/$_/init.ps1"
 }
