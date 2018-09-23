@@ -5,7 +5,7 @@ function format-code($path, $mapping) {
 }
 
 function convert-fn($fn) {
-  "write-host '[!] $fn'; $fn"
+  "write-host '[!] $fn'; $fn | out-null"
 }
 
 $template = "template"

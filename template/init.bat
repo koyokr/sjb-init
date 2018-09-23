@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 
 :: set env
 set PSHOME=%SystemRoot%\System32\WindowsPowerShell\v1.0
