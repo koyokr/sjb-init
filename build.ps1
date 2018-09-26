@@ -35,7 +35,7 @@ $langs.keys | % { new-item "$output/$_" -itemtype directory }
 
 # index.html
 $langs.keys | % { format-code "$template/index.html" @{"url"="init.bat"} | set-content "$output/$_/index.html" }
-format-code "$template/index.html" @{"url"="/common/index.html"} | set-content "$output/index.html"
+format-code "$template/index.html" @{"url"="/common/"} | set-content "$output/index.html"
 
 # init.bat
 $langs.keys | % { format-code "$template/init.bat" @{"lang"=$_} | set-content "out/$_/init.bat" }
