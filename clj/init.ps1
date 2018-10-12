@@ -31,9 +31,9 @@ function disable-policies {
 set-itemproperty -path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -name DisableRegistryTools -value 0
 set-itemproperty -path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System -name DisableTaskMgr       -value 0
 # disable policies explorer, keyboard
-remove-item -path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -recurse -force
-remove-item -path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -recurse -force
-remove-item -path HKLM:\SYSTEM\CurrentControlSet\Control\"Keyboard Layout"          -recurse -force
+remove-item -path HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -recurse -force -erroraction silentlycontinue
+remove-item -path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer -recurse -force -erroraction silentlycontinue
+remove-item -path HKLM:\SYSTEM\CurrentControlSet\Control\"Keyboard Layout"          -recurse -force -erroraction silentlycontinue
 # restart explorer
 stop-process -name explorer
 }
@@ -42,7 +42,6 @@ function install-bandizip {
 $bandizip = "BANDIZIP-SETUP-KR.EXE"
 download-file "https://dl.bandisoft.com/bandizip.kr/$bandizip" $bandizip
 & .\$bandizip /S
-remove-item $bandizip
 }
 
 function install-choco {
