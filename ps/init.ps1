@@ -2,8 +2,13 @@
 
 Set-ExecutionPolicy Bypass -Scope Process -force
 
-function download-string($url) {
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+function download-file($url, $file) {
+(new-object System.Net.WebClient).DownloadFile($url, $file)
+}
+
+function download-string($url) {
 (new-object System.Net.WebClient).DownloadString($url)
 }
 
@@ -31,6 +36,13 @@ remove-item -path HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Explo
 remove-item -path HKLM:\SYSTEM\CurrentControlSet\Control\"Keyboard Layout"          -recurse -force
 # restart explorer
 stop-process -name explorer
+}
+
+function install-bandizip {
+$bandizip = "BANDIZIP-SETUP-KR.exe"
+download-file "https://dl.bandisoft.com/bandizip.kr/$bandizip" $bandizip
+& .\$bandizip /S
+remove-item $bandizip
 }
 
 function install-choco {
@@ -203,6 +215,7 @@ code --install-extension ms-vscode.PowerShell
 write-host '[!] disable-policies'; disable-policies | out-null
 write-host '[!] configure-dns'; configure-dns | out-null
 write-host '[!] configure-hosts'; configure-hosts | out-null
+write-host '[!] install-bandizip'; install-bandizip | out-null
 write-host '[!] install-choco'; install-choco | out-null
 write-host '[!] install-chrome'; install-chrome | out-null
 write-host '[!] install-vscode'; install-vscode | out-null
