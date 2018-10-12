@@ -38,12 +38,12 @@ $langs.keys | % { format-code "$template/index.html" @{"url"="init.bat"} | set-c
 format-code "$template/index.html" @{"url"="/common/"} | set-content "$output/index.html"
 
 # init.bat
-$langs.keys | % { format-code "$template/init.bat" @{"lang"=$_} | set-content -encoding utf8 "out/$_/init.bat" }
+$langs.keys | % { format-code "$template/init.bat" @{"lang"=$_} | set-content "out/$_/init.bat" }
 
 # init.ps1
 $langs.keys | % {
   $fns = $langs.item($_)
   if ($_ -ne "common") { $fns = $langs.item("common") + $fns }
   $fns = $fns | % { convert-fn $_ }
-  format-code "$template/init.ps1" @{'code'=[string]::Join("`n", $fns)} | set-content -encoding utf8 "$output/$_/init.ps1"
+  format-code "$template/init.ps1" @{'code'=[string]::Join("`n", $fns)} | set-content -encoding utf8bom "$output/$_/init.ps1"
 }
