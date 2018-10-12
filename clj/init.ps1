@@ -1,4 +1,4 @@
-# require .NET 4 runtime
+﻿# require .NET 4 runtime
 
 Set-ExecutionPolicy Bypass -Scope Process -force
 
