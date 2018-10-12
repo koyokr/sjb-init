@@ -51,7 +51,7 @@ code --install-extension ms-ceintl.vscode-language-pack-ko
 }
 "@ | set-content -path $env:APPDATA\Code\User\locale.json
 
-$version = (code --list-extensions --show-versions | select-string vscode-language-pack | out-string).split('@')[1]
+$version = (code --list-extensions --show-versions | select-string vscode-language-pack | out-string).trim().split('@')[1]
 $translations = "$env:USERPROFILE/.vscode/extensions/ms-ceintl.vscode-language-pack-ko-$version/translations".replace("\", "/")
 $extensions   = "$translations/extensions"
 @"
