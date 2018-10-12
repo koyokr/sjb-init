@@ -39,7 +39,7 @@ stop-process -name explorer
 }
 
 function install-bandizip {
-$bandizip = "BANDIZIP-SETUP-KR.exe"
+$bandizip = "BANDIZIP-SETUP-KR.EXE"
 download-file "https://dl.bandisoft.com/bandizip.kr/$bandizip" $bandizip
 & .\$bandizip /S
 remove-item $bandizip
