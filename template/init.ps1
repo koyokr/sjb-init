@@ -43,7 +43,6 @@ $file = "BANDIZIP-SETUP-KR.EXE"
 $path = "$env:TEMP\$file"
 download-file "https://dl.bandisoft.com/bandizip.kr/$file" $path
 & $path /S | out-null
-remove-item $path
 }
 
 function install-chrome {
@@ -52,7 +51,6 @@ $path = "$env:TEMP\$file"
 download-file "https://dl.google.com/tag/s/dl/chrome/install/$file" $path
 cmd /c "echo.>$path:Zone.Identifier"
 & $path /quiet /norestart
-remove-item $path
 
 # set chrome as default browser
 $base = "HKCU:\Software\Microsoft\Windows\Shell\"
