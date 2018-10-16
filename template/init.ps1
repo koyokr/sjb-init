@@ -39,9 +39,36 @@ stop-process -name explorer
 }
 
 function install-bandizip {
-$bandizip = "BANDIZIP-SETUP-KR.EXE"
-download-file "https://dl.bandisoft.com/bandizip.kr/$bandizip" $bandizip
-& .\$bandizip /S
+$file = "BANDIZIP-SETUP-KR.EXE"
+$path = "$env:TEMP\$file"
+download-file "https://dl.bandisoft.com/bandizip.kr/$file" $path
+& $path /S | out-null
+remove-item $path
+}
+
+function install-chrome {
+$file = "googlechromestandaloneenterprise.msi"
+$path = "$env:TEMP\$file"
+download-file "https://dl.google.com/tag/s/dl/chrome/install/$file" $path
+cmd /c "echo.>$path:Zone.Identifier"
+& $path /quiet /norestart | out-null
+remove-item $path
+
+# set chrome as default browser
+$base = "HKCU:\Software\Microsoft\Windows\Shell\"
+$assoc = "Associations\UrlAssociations\{0}\UserChoice"
+$ftp   = $assoc -f "ftp"
+$http  = $assoc -f "http"
+$https = $assoc -f "https"
+new-item -path $base -name $ftp   -force
+new-item -path $base -name $http  -force
+new-item -path $base -name $https -force
+$ftp   = $base + $ftp
+$http  = $base + $http
+$https = $base + $https
+set-itemproperty -path $ftp   -name ProgId -value ChromeHTML
+set-itemproperty -path $http  -name ProgId -value ChromeHTML
+set-itemproperty -path $https -name ProgId -value ChromeHTML
 }
 
 function install-choco {
@@ -150,25 +177,6 @@ $extensions   = "$translations/extensions"
 # install git
 choco install git -y
 code --install-extension eamodio.gitlens
-}
-
-function install-chrome {
-choco install googlechrome -y
-# set chrome as default browser
-$base = "HKCU:\Software\Microsoft\Windows\Shell\"
-$assoc = "Associations\UrlAssociations\{0}\UserChoice"
-$ftp   = $assoc -f "ftp"
-$http  = $assoc -f "http"
-$https = $assoc -f "https"
-new-item -path $base -name $ftp   -force
-new-item -path $base -name $http  -force
-new-item -path $base -name $https -force
-$ftp   = $base + $ftp
-$http  = $base + $http
-$https = $base + $https
-set-itemproperty -path $ftp   -name ProgId -value ChromeHTML
-set-itemproperty -path $http  -name ProgId -value ChromeHTML
-set-itemproperty -path $https -name ProgId -value ChromeHTML
 }
 
 function install-clojure {
