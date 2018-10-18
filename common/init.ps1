@@ -220,8 +220,8 @@ code --install-extension ms-vscode.PowerShell
 write-host '[!] disable-policies'; disable-policies | out-null
 write-host '[!] configure-dns'; configure-dns | out-null
 write-host '[!] configure-hosts'; configure-hosts | out-null
-write-host '[!] install-bandizip'; install-bandizip | out-null
 write-host '[!] install-chrome'; install-chrome | out-null
+write-host '[!] install-bandizip'; install-bandizip | out-null
 write-host '[!] install-choco'; install-choco | out-null
 write-host '[!] install-vscode'; install-vscode | out-null
 write-host '[!] complete' -foregroundcolor green; read-host
