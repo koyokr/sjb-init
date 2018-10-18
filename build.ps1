@@ -15,8 +15,8 @@ $langs = @{
     "disable-policies"
     "configure-dns"
     "configure-hosts"
-    "install-bandizip"
     "install-chrome"
+    "install-bandizip"
     "install-choco"
     "install-vscode"
   )
