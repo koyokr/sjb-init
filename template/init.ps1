@@ -50,7 +50,7 @@ $file = "googlechromestandaloneenterprise.msi"
 $path = "$env:TEMP\$file"
 download-file "https://dl.google.com/tag/s/dl/chrome/install/$file" $path
 cmd /c "echo.>$path:Zone.Identifier"
-& $path /quiet /norestart
+& $path /passive /norestart
 
 # set chrome as default browser
 $base = "HKCU:\Software\Microsoft\Windows\Shell\"
