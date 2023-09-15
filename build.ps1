@@ -9,7 +9,7 @@ function convert-fn($fn) {
 }
 
 $template = "template"
-$output = "out"
+$output = "public"
 $langs = @{
   "common"= @(
     "disable-policies"
@@ -40,7 +40,7 @@ $langs.keys | % { format-code "$template/index.html" @{"url"="init.bat"} | set-c
 format-code "$template/index.html" @{"url"="common/"} | set-content "$output/index.html"
 
 # init.bat
-$langs.keys | % { format-code "$template/init.bat" @{"lang"=$_} | set-content "out/$_/init.bat" }
+$langs.keys | % { format-code "$template/init.bat" @{"lang"=$_} | set-content "$output/$_/init.bat" }
 
 # init.ps1
 $langs.keys | % {
